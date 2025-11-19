@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2025 at 08:13 AM
+-- Generation Time: Nov 19, 2025 at 08:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,10 +65,10 @@ CREATE TABLE `meals` (
 --
 
 INSERT INTO `meals` (`id`, `name`, `description`, `price`, `image_url`, `category_id`, `is_available`, `created_at`) VALUES
-(1, 'Chicken Pizza', 'Delicious pizza with chicken toppings', 8500.00, 'pizza.jpg', 2, 1, '2025-11-13 13:25:08'),
+(1, 'Chicken Pizza', 'Delicious pizza with chicken toppings', 8500.00, 'chicken.jpg', 2, 1, '2025-11-13 13:25:08'),
 (2, 'Beef Burger', 'Juicy beef burger with fresh vegetables', 4500.00, 'burger.jpg', 2, 1, '2025-11-13 13:25:08'),
 (3, 'French Fries', 'Crispy golden fries', 2000.00, 'fries.jpg', 1, 1, '2025-11-13 13:25:08'),
-(4, 'Chocolate Cake', 'Rich chocolate cake slice', 3000.00, 'cake.jpg', 3, 1, '2025-11-13 13:25:08'),
+(4, 'Chocolate Cake', 'Rich chocolate cake slice', 3000.00, 'cakes.jpg', 3, 1, '2025-11-13 13:25:08'),
 (5, 'Soda', 'Cold refreshing soda', 1500.00, 'soda.jpg', 4, 1, '2025-11-13 13:25:08');
 
 -- --------------------------------------------------------

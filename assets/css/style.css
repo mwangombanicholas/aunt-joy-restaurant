@@ -258,3 +258,67 @@ body {
         overflow-x: auto;
     }
 }
+/* Enhanced Menu Styles */
+.meal-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.meal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.meal-image {
+    overflow: hidden;
+}
+
+.meal-image img {
+    transition: transform 0.3s ease;
+}
+
+.meal-card:hover .meal-image img {
+    transform: scale(1.05);
+}
+
+/* Button Enhancements */
+.btn {
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Featured Section Styles */
+.featured-meal {
+    transition: all 0.3s ease;
+}
+
+.featured-meal:hover {
+    transform: translateY(-10px);
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.meal-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Stagger animation for menu items */
+.menu-grid .meal-card:nth-child(1) { animation-delay: 0.1s; }
+.menu-grid .meal-card:nth-child(2) { animation-delay: 0.2s; }
+.menu-grid .meal-card:nth-child(3) { animation-delay: 0.3s; }
+.menu-grid .meal-card:nth-child(4) { animation-delay: 0.4s; }

@@ -55,7 +55,7 @@ foreach ($meals as $meal) {
     <?php unset($_SESSION['welcome_message']); ?>
 <?php endif; ?>
 
-<h1>Our Menu</h1>
+<h1>Our Delicious Menu</h1>
 
 <?php if (isset($_GET['success'])): ?>
     <div style="background: #e8f5e8; color: #2e7d32; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
@@ -75,37 +75,83 @@ foreach ($meals as $meal) {
 <div class="menu-categories">
     <?php foreach ($mealsByCategory as $category => $categoryMeals): ?>
         <div class="category-section">
-            <h2><?php echo htmlspecialchars($category); ?></h2>
+            <h2 style="color: #2c3e50; border-bottom: 3px solid #e74c3c; padding-bottom: 0.5rem; margin-bottom: 2rem;"><?php echo htmlspecialchars($category); ?></h2>
             <div class="menu-grid">
                 <?php foreach ($categoryMeals as $meal): ?>
-                    <div class="meal-card">
-                        <div class="meal-image">
+                    <div class="meal-card" style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="meal-image" style="position: relative;">
                             <?php if ($meal['image_url']): ?>
-                                <img src="../assets/images/meals/<?php echo $meal['image_url']; ?>" alt="<?php echo htmlspecialchars($meal['name']); ?>">
+                                <img src="../assets/images/meals/<?php echo $meal['image_url']; ?>" 
+                                     alt="<?php echo htmlspecialchars($meal['name']); ?>" 
+                                     style="width: 100%; height: 200px; object-fit: cover;">
                             <?php else: ?>
-                                <div style="background: #ddd; height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                                    🍽️ No Image
+                                <div style="background: linear-gradient(45deg, #f39c12, #e74c3c); height: 200px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                                    <span style="color: white; font-size: 1.5rem;">🍽️</span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!$meal['is_available']): ?>
+                                <div style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; padding: 0.5rem; border-radius: 5px; font-size: 0.8rem;">
+                                    Out of Stock
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <h3><?php echo htmlspecialchars($meal['name']); ?></h3>
-                        <p class="meal-description"><?php echo htmlspecialchars($meal['description']); ?></p>
-                        <div class="meal-price">MK <?php echo number_format($meal['price'], 2); ?></div>
                         
-                        <form method="POST" action="">
-                            <input type="hidden" name="meal_id" value="<?php echo $meal['id']; ?>">
-                            <input type="hidden" name="add_to_cart" value="1">
-                            <div class="form-group">
-                                <label for="quantity_<?php echo $meal['id']; ?>">Quantity:</label>
-                                <input type="number" id="quantity_<?php echo $meal['id']; ?>" name="quantity" value="1" min="1" max="10" style="width: 80px;">
-                            </div>
-                            <button type="submit" class="btn">🛒 Add to Cart</button>
-                        </form>
+                        <div style="padding: 1.5rem;">
+                            <h3 style="color: #2c3e50; margin-bottom: 0.5rem; font-size: 1.2rem;"><?php echo htmlspecialchars($meal['name']); ?></h3>
+                            <p class="meal-description" style="color: #666; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.4;"><?php echo htmlspecialchars($meal['description']); ?></p>
+                            <div class="meal-price" style="font-size: 1.5rem; font-weight: bold; color: #27ae60; margin: 1rem 0;">MK <?php echo number_format($meal['price'], 2); ?></div>
+                            
+                            <?php if ($meal['is_available']): ?>
+                                <form method="POST" action="">
+                                    <input type="hidden" name="meal_id" value="<?php echo $meal['id']; ?>">
+                                    <input type="hidden" name="add_to_cart" value="1">
+                                    <div class="form-group" style="margin-bottom: 1rem;">
+                                        <label for="quantity_<?php echo $meal['id']; ?>" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quantity:</label>
+                                        <input type="number" id="quantity_<?php echo $meal['id']; ?>" name="quantity" value="1" min="1" max="10" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                                    </div>
+                                    <button type="submit" class="btn" style="background: #e74c3c; width: 100%; padding: 1rem; font-size: 1.1rem; border: none; border-radius: 5px; cursor: pointer;">
+                                        🛒 Add to Cart
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <button disabled style="background: #95a5a6; color: white; width: 100%; padding: 1rem; font-size: 1.1rem; border: none; border-radius: 5px; cursor: not-allowed;">
+                                    Currently Unavailable
+                                </button>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
+
+<style>
+.meal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.category-section {
+    margin-bottom: 4rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .meal-card {
+        margin-bottom: 1rem;
+    }
+}
+</style>
 
 <?php include '../includes/footer.php'; ?>
